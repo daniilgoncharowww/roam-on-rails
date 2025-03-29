@@ -1,0 +1,16 @@
+ru:
+  activerecord:
+    models:
+      booking: "Бронирование"
+    attributes:
+      booking:
+        full_name: "ФИО"
+        email: "Email"
+        phone_number: "Телефон"
+        payment_method: "Способ оплаты"
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      blank: "не может быть пустым"
+      too_short: "должен содержать не менее %{count} символов"
+      invalid: "имеет неверный формат"

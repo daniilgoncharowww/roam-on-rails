@@ -22,7 +22,7 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV["POSTGRES_DB"] || "tourists_development" %>
+  database: <%= ENV["POSTGRES_DB"] || "tourists" %>
   username: <%= ENV["POSTGRES_USER"] || "postgres" %>
   password: <%= ENV["POSTGRES_PASSWORD"] || "postgres" %>
   host: <%= ENV["POSTGRES_HOST"] || "localhost" %>

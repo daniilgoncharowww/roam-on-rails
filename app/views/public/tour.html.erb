@@ -5,7 +5,7 @@
     <% end %>
     <div class="p-6">
       <h1 class="text-3xl font-bold text-gray-800 mb-2"><%= @tour.name %></h1>
-      <p class="text-sm text-gray-500 mb-4">Категория: <%= @tour.category.name %></p>
+      <p class="text-sm text-gray-500 mb-4"><%= @tour.category.name %></p>
       <p class="text-sm text-gray-400 mb-6">
         Добавлен: <%= @tour.created_at.strftime("%d.%m.%Y") %>
       </p>
@@ -32,7 +32,7 @@
         <% end %>
       </div>
       <div class="mt-8">
-        <%= link_to 'Забронировать тур', new_order_path(tour_id: @tour.id),
+        <%= link_to 'Забронировать тур', new_booking_path(tour_id: @tour.id),
           class: "inline-block bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-5 py-2 rounded-xl transition" %>
       </div>
       <div class="mt-8">
