@@ -10,11 +10,17 @@
           <th class="w-1/12 py-3 px-4 border-b font-medium">
             <%= link_to "ID", admin_tours_path(sort: "id", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
           </th>
-          <th class="w-3/12 py-3 px-4 border-b font-medium">
+          <th class="w-2/12 py-3 px-4 border-b font-medium">
             <%= link_to "Название", admin_tours_path(sort: "name", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
           </th>
-          <th class="w-3/12 py-3 px-4 border-b font-medium">
-            <%= link_to "Цена", admin_tours_path(sort: "price", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
+          <th class="w-2/12 py-3 px-4 border-b font-medium">
+            <%= link_to "Изначальная цена", admin_tours_path(sort: "price", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
+          </th>
+          <th class="w-1/12 py-3 px-4 border-b font-medium">
+            <%= link_to "Скидка", admin_tours_path(sort: "discount_percent", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
+          </th>
+          <th class="w-2/12 py-3 px-4 border-b font-medium">
+            <%= link_to "Цена со скидкой", admin_tours_path(sort: "price", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
           </th>
           <th class="w-4/12 py-3 px-4 border-b font-medium">Действия</th>
         </tr>
@@ -25,7 +31,10 @@
             <td class="py-3 px-4 border-b"><%= tour.id %></td>
             <td class="py-3 px-4 border-b"><%= tour.name %></td>
             <td class="py-3 px-4 border-b"><%= number_to_currency(tour.price, unit: "₽", precision: 0) %></td>
+            <td class="py-3 px-4 border-b"><%= tour.discount_percent %> %</td>
+            <td class="py-3 px-4 border-b"><%= number_to_currency(tour.final_price, unit: "₽", precision: 0) %></td>
             <td class="py-3 px-4 border-b space-x-2 font-bold">
+              <%= link_to "Подробнее", admin_tour_path(tour), class: "inline-block bg-gray-400 hover:bg-gray-500 text-white text-sm px-3 py-1 rounded" %>
               <%= link_to "Редактировать", edit_admin_tour_path(tour), class: "inline-block bg-yellow-400 hover:bg-yellow-500 text-white text-sm px-3 py-1 rounded" %>
               <%= link_to "Удалить", confirm_destroy_admin_tour_path(tour), method: :delete, data: { confirm: "Вы уверены?" }, class: "inline-block bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded" %>
             </td>

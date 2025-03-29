@@ -6,7 +6,7 @@ module Admin
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def index
-      sort_column = params[:sort].presence_in(%w[id name category price]) || "id"
+      sort_column = params[:sort].presence_in(%w[id name discount_percent price]) || "id"
       sort_direction = params[:direction].presence_in(%w[asc desc]) || "asc"
 
       @tours = Tour.order("#{sort_column} #{sort_direction}")
@@ -33,7 +33,7 @@ module Admin
     end
 
     def update
-      if @tour.update
+      if @tour.update(tour_params)
         redirect_to admin_tour_path(@tour)
       else
         render :edit, status: :unprocessable_entity
@@ -45,7 +45,7 @@ module Admin
 
     def destroy
       @tour.destroy
-      redirect_to admin_tour_path, notice: "Тур удален"
+      redirect_to admin_tours_path, notice: "Тур удален"
     end
 
     private
@@ -59,7 +59,7 @@ module Admin
         :name,
         :price,
         :description,
-        :discounted,
+        :discount_percent,
         :hidden,
         :image,
         category_ids: []
