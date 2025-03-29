@@ -1,1 +1,42 @@
-<h1 class="text-red-500">test</h1>
+<section class="w-full text-white">
+  <div class="relative h-screen w-full flex flex-col justify-center items-center text-center px-4"
+       style="<%= "background-image: url(#{asset_path('main.jpg')})" %>; background-size: cover; background-position: center;">
+    <div class="absolute inset-0 bg-black/50 z-0"></div>
+    <div class="relative z-10 max-w-2xl bg-black/90 p-6 rounded-xl">
+      <h2 class="text-4xl sm:text-5xl font-bold">Откройте мир с нами!</h2>
+      <p class="text-lg sm:text-xl mt-4">Путешествуйте легко и комфортно.</p>
+      <div class="mt-6">
+        <%= link_to "Перейти к турам", tours_path,
+          class: "inline-block bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-6 py-3 rounded-xl transition" %>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="w-full py-16 bg-white text-gray-800">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="text-4xl font-bold mb-4">О нас</h2>
+    <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+      Мы создаем незабываемые путешествия с душой. Наша команда — это энтузиасты,
+      влюбленные в мир и своё дело, которые подберут для вас тур мечты.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="p-6 bg-gray-100 rounded-lg shadow hover:shadow-md transition">
+        <h3 class="text-xl font-semibold mb-2">10+ лет опыта</h3>
+        <p class="text-gray-600 text-sm">
+          Мы работаем с 2015 года и организовали более 5 000 туров по всему миру.
+        </p>
+      </div>
+      <div class="p-6 bg-gray-100 rounded-lg shadow hover:shadow-md transition">
+        <h3 class="text-xl font-semibold mb-2">Персональный подход</h3>
+        <p class="text-gray-600 text-sm">
+          Учитываем все ваши пожелания — от формата отдыха до мелочей в отеле.
+        </p>
+      </div>
+      <div class="p-6 bg-gray-100 rounded-lg shadow hover:shadow-md transition">
+        <h3 class="text-xl font-semibold mb-2">Поддержка 24/7</h3>
+        <p class="text-gray-600 text-sm">
+          Мы всегда на связи, чтобы ваше путешествие прошло без забот и стресса.
+        </p>
+      </div>
+    </div>
+  </section>

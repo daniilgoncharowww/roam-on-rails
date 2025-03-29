@@ -1,0 +1,44 @@
+<div class="max-w-4xl mx-auto p-6">
+  <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
+    <% if @tour.image.attached? %>
+      <img src="<%= url_for(@tour.image) %>" alt="<%= @tour.name %>" class="w-full h-96 object-cover">
+    <% end %>
+    <div class="p-6">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2"><%= @tour.name %></h1>
+      <p class="text-sm text-gray-500 mb-4">Категория: <%= @tour.category.name %></p>
+      <p class="text-sm text-gray-400 mb-6">
+        Добавлен: <%= @tour.created_at.strftime("%d.%m.%Y") %>
+      </p>
+      <% if @tour.description.present? %>
+        <div class="prose max-w-none text-gray-700">
+          <%= simple_format(@tour.description) %>
+        </div>
+      <% else %>
+        <p class="text-gray-400 italic">Описание недоступно.</p>
+      <% end %>
+      <div class="flex items-center justify-center gap-4 my-4">
+        <% if @tour.discounted %>
+          <span class="text-gray-400 line-through text-lg">
+            <%= number_to_currency(@tour.price * 1.2, unit: "₽", precision: 0) %>
+          </span>
+          <span class="text-xl text-red-600 font-semibold">
+            <%= number_to_currency(@tour.price, unit: "₽", precision: 0) %>
+          </span>
+          <span class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">Скидка!</span>
+        <% else %>
+          <span class="text-xl text-green-600 font-semibold">
+            <%= number_to_currency(@tour.price, unit: "₽", precision: 0) %>
+          </span>
+        <% end %>
+      </div>
+      <div class="mt-8">
+        <%= link_to 'Забронировать тур', new_order_path(tour_id: @tour.id),
+          class: "inline-block bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-5 py-2 rounded-xl transition" %>
+      </div>
+      <div class="mt-8">
+        <%= link_to '← Назад к турам', tours_path,
+          class: "inline-block bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-medium px-5 py-2 rounded-xl transition" %>
+      </div>
+    </div>
+  </div>
+</div>

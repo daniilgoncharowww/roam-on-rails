@@ -1,6 +1,5 @@
 <div class="container mx-auto px-4 py-8">
   <h1 class="text-3xl font-bold mb-6 text-center">Наши туры</h1>
-
   <% if @tours.any? %>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <% @tours.each do |tour| %>
@@ -15,16 +14,14 @@
               Нет изображения
             </div>
           <% end %>
-
-          <h2 class="text-xl font-semibold text-center"><%= tour.name %></h2>
+          <h2 class="text-xl font-semibold text-center text-black"><%= tour.name %></h2>
           <p class="text-lg text-blue-600 font-bold mt-2 mb-4">
             <%= number_to_currency(tour.price, unit: "₽", precision: 0) %>
           </p>
-
           <%= link_to(
             "Подробнее",
-            "#",
-            class: "inline-block mt-auto bg-green-500 hover:bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition"
+            tour,
+            class: "inline-block mt-auto bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition"
           ) %>
         </div>
       <% end %>

@@ -23,8 +23,10 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <%= render "shared/header" %>
+    <main class="h-screen w-full flex items-center justify-center bg-cover bg-center text-center text-white">
       <%= yield %>
     </main>
+    <%= render "shared/footer" %>
   </body>
 </html>
