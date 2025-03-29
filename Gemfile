@@ -63,3 +63,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "foreman", "~> 0.88.1"
+
+gem "devise", "~> 4.9"
+
+gem "image_processing", "~> 1.14"

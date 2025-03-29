@@ -1,0 +1,12 @@
+<header class="bg-green shadow-md fixed top-0 left-0 w-full z-50">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-red-600">
+      <%= link_to "Friendly Tours", root_path, class: "hover:underline" %>
+    </h1>
+
+    <nav class="space-x-6 text-gray-700 text-sm font-medium">
+      <%= link_to "Главная", root_path, class: "hover:text-blue-600" %>
+      <%= link_to "Туры", tours_path, class: "hover:text-blue-600" %>
+    </nav>
+  </div>
+</header>

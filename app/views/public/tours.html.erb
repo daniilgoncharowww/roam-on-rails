@@ -1,0 +1,35 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6 text-center">Наши туры</h1>
+
+  <% if @tours.any? %>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @tours.each do |tour| %>
+        <div class="bg-white rounded-2xl shadow p-4 flex flex-col items-center hover:shadow-lg transition">
+          <% if tour.image.attached? %>
+            <%= image_tag(
+              tour.image.variant(resize_to_limit: [400, 250]),
+              class: "w-full h-48 object-cover rounded-xl mb-4"
+            ) %>
+          <% else %>
+            <div class="w-full h-48 bg-gray-200 rounded-xl mb-4 flex items-center justify-center text-gray-500">
+              Нет изображения
+            </div>
+          <% end %>
+
+          <h2 class="text-xl font-semibold text-center"><%= tour.name %></h2>
+          <p class="text-lg text-blue-600 font-bold mt-2 mb-4">
+            <%= number_to_currency(tour.price, unit: "₽", precision: 0) %>
+          </p>
+
+          <%= link_to(
+            "Подробнее",
+            "#",
+            class: "inline-block mt-auto bg-green-500 hover:bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition"
+          ) %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-gray-500">Пока что нет доступных туров.</p>
+  <% end %>
+</div>
