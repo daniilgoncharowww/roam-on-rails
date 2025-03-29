@@ -5,49 +5,52 @@ User.destroy_all
 
 ActiveStorage::Attachment.all.each(&:purge)
 
-%w[Россия Европа Азия Африка].map do |name|
-  Category.create(name: name)
+category_names = %w[Россия Европа Азия Африка]
+categories = {}
+category_names.each do |name|
+  categories[name] = Category.create!(name: name)
 end
 
-tours = {
+tours_data = {
   "Лондон" => {
     filename: "london.jpg",
-    category: Category.find_or_create_by(name: "Европа")
+    categories: [ categories["Европа"] ]
   },
   "Париж" => {
     filename: "paris.jpg",
-    category: Category.find_or_create_by(name: "Европа")
+    categories: [ categories["Европа"] ]
   },
   "Рим" => {
     filename: "rome.jpg",
-    category: Category.find_or_create_by(name: "Европа")
+    categories: [ categories["Европа"] ]
   },
   "Токио" => {
     filename: "tokio.jpg",
-    category: Category.find_or_create_by(name: "Азия")
+    categories: [ categories["Азия"] ]
   }
 }
 
-tours.each do |key, value|
+tours_data.each do |name, data|
   tour = Tour.create!(
-    name: key,
+    name: name,
     price: rand(50_000..120_000),
     discounted: [ true, false ].sample,
-    description: "Lorem ipsum dolor sit amet.",
-    category: value[:category],
+    description: "Описание тура в #{name}",
     hidden: false
   )
 
-  attached = tour.image.attach(
-    io: File.open(File.join(Rails.root, "app/assets/images/#{value[:filename]}")),
-    filename: value[:filename],
-    content_type: "image/jpeg"
-  )
-  p attached
+  tour.categories << data[:categories]
 
-  puts "Successfull added: #{key}"
-
-  tour.save
+  image_path = Rails.root.join("app/assets/images/#{data[:filename]}")
+  if File.exist?(image_path)
+    tour.image.attach(
+      io: File.open(image_path),
+      filename: data[:filename],
+      content_type: "image/jpeg"
+    )
+  else
+    puts "Could not find image: #{data[:filename]}"
+  end
 end
 
 User.create!(

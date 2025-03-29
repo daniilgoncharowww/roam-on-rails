@@ -4,11 +4,16 @@ class CreateTours < ActiveRecord::Migration[8.0]
       t.string :name
       t.decimal :price, precision: 10, scale: 2
       t.boolean :discounted
+      t.integer :discount_percent, default: 0
       t.text :description
       t.boolean :hidden
-      t.references :category, null: false, foreign_key: true
 
       t.timestamps
+    end
+
+    create_join_table :tours, :categories do |t|
+      t.index :tour_id
+      t.index :category_id
     end
   end
 end

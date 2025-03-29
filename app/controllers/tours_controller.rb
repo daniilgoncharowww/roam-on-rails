@@ -1,2 +1,0 @@
-class ToursController < ApplicationController
-end

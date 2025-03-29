@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!, except: [ :new, :create ]
-  before_action :set_order, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_book, only: [ :show, :edit, :update, :destroy ]
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
@@ -14,8 +14,6 @@ class BookingsController < ApplicationController
   def new
     @tour = Tour.find(params[:tour_id])
     @book = Booking.new
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: "Указанный тур не найден."
   end
 
   def create
@@ -27,8 +25,6 @@ class BookingsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: "Выбранный тур не существует."
   end
 
   def edit

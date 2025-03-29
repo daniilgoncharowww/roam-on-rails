@@ -5,9 +5,20 @@ Rails.application.routes.draw do
   root "public#index"
   get "tours", to: "public#tours", as: "tours"
   get "tours/:id", to: "public#tour", as: "tour"
-  resources :bookings
-  resources :categories
-  resources :tours
+  namespace :admin do
+    resources :categories, except: [ :show ] do
+      member do
+        get :confirm_destroy
+      end
+    end
+    resources :tours do
+      member do
+        get :confirm_destroy
+      end
+    end
+    resources :bookings
+  end
+
   get "admin", to: "admin#index", as: "admin"
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
