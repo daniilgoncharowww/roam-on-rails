@@ -1,6 +1,8 @@
 class Booking < ApplicationRecord
   belongs_to :tour
 
+  before_validation :set_booked_price, on: :create
+
   validates :full_name, :email, :phone_number, :payment_method, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :phone_number, presence: { message: "не может быть пустым" }
@@ -19,4 +21,8 @@ class Booking < ApplicationRecord
     with: /\A(?:\+7|8)\d{10}\z/,
     message: "должен быть российским номером в формате +7XXXXXXXXXX или 8XXXXXXXXXX"
   }
+
+  def set_booked_price
+    self.booked_price ||= tour&.final_price
+  end
 end

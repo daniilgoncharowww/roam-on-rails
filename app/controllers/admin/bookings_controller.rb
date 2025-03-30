@@ -6,7 +6,7 @@ module Admin
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
     def index
-      sort_column = params[:sort].presence_in(%w[id full_name price]) || "id"
+      sort_column = params[:sort].presence_in(%w[id full_name booked_price created_at]) || "id"
       sort_direction = params[:direction].presence_in(%w[asc desc]) || "asc"
 
       @bookings = Booking.includes(:tour).order(Arel.sql("#{sort_column} #{sort_direction}"))

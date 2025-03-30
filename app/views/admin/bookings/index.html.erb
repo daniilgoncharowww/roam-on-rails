@@ -11,7 +11,9 @@
             <%= link_to "ФИО", admin_bookings_path(sort: "full_name", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
           </th>
           <th class="w-2/12 py-3 px-4 border-b font-medium">Тур</th>
-          <th class="w-2/12 py-3 px-4 border-b font-medium">Сумма к оплате</th>
+          <th class="w-2/12 py-3 px-4 border-b font-medium">
+            <%= link_to "Сумма к оплате", admin_bookings_path(sort: "booked_price", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
+          </th>
           <th class="w-2/12 py-3 px-4 border-b font-medium">
             <%= link_to "Создан", admin_bookings_path(sort: "created_at", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
           </th>
@@ -25,7 +27,7 @@
             <td class="py-3 px-4 border-b"><%= booking.full_name %></td>
             <td class="py-3 px-4 border-b"><%= booking.tour.name %></td>
             <td class="py-3 px-4 border-b">
-              <%= number_to_currency(booking.tour.final_price, unit: "₽", precision: 0) %>
+              <%= number_to_currency(booking.booked_price, unit: "₽", precision: 0) %>
             </td>
             <td class="py-3 px-4 border-b"><%= l(booking.created_at, format: :short) %></td>
             <td class="py-3 px-4 border-b space-x-2 font-bold">

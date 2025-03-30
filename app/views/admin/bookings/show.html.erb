@@ -33,8 +33,8 @@
     </div>
 
     <div>
-      <span class="font-semibold">Стоимость тура:</span>
-      <span><%= number_to_currency(@booking.tour.final_price, unit: "₽", precision: 0) %></span>
+      <span class="font-semibold">Сумма к оплате:</span>
+      <span><%= number_to_currency(@booking.booked_price, unit: "₽", precision: 0) %></span>
     </div>
 
     <div>
