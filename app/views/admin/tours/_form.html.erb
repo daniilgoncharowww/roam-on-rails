@@ -1,6 +1,6 @@
 <%= form_with model: [:admin, @tour], local: true, html: { multipart: true } do |form| %>
   <% if @tour.errors.any? %>
-    <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+    <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded col-span-2">
       <p class="font-semibold text-lg mb-2">Не удалось сохранить тур:</p>
       <ul class="list-disc pl-5">
         <% @tour.errors.full_messages.each do |message| %>
@@ -9,38 +9,32 @@
       </ul>
     </div>
   <% end %>
-  <div class="grid grid-cols-1 gap-6 text-black">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-black">
     <div>
       <%= form.label :name, "Название", class: "block font-medium text-gray-700 mb-1" %>
-      <%= form.text_field :name,
-          class: "w-full border border-gray-300 rounded px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 #{'border-red-500' if @tour.errors[:name].any?}" %>
+      <%= form.text_field :name, class: "w-full border border-gray-300 rounded px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 #{'border-red-500' if @tour.errors[:name].any?}" %>
       <% @tour.errors[:name].each do |msg| %>
         <p class="text-red-600 text-sm mt-1"><%= msg %></p>
       <% end %>
     </div>
+
     <div>
       <%= form.label :price, "Цена", class: "block font-medium text-gray-700 mb-1" %>
-      <%= form.number_field :price, step: 1, max: 99999999,
-          class: "w-full border border-gray-300 rounded px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 #{'border-red-500' if @tour.errors[:price].any?}" %>
+      <%= form.number_field :price, step: 1, max: 99999999, class: "w-full border border-gray-300 rounded px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 #{'border-red-500' if @tour.errors[:price].any?}" %>
       <% @tour.errors[:price].each do |msg| %>
         <p class="text-red-600 text-sm mt-1"><%= msg %></p>
       <% end %>
     </div>
+
     <div>
       <%= form.label :discount_percent, "Скидка (%)", class: "block font-medium text-gray-700 mb-1" %>
-      <%= form.number_field :discount_percent, in: 0..100, step: 1, value: @tour.discount_percent || 0,
-          class: "w-full border border-gray-300 rounded px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 #{'border-red-500' if @tour.errors[:discount_percent].any?}" %>
+      <%= form.number_field :discount_percent, in: 0..100, step: 1, value: @tour.discount_percent || 0, class: "w-full border border-gray-300 rounded px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 #{'border-red-500' if @tour.errors[:discount_percent].any?}" %>
       <% @tour.errors[:discount_percent].each do |msg| %>
         <p class="text-red-600 text-sm mt-1"><%= msg %></p>
       <% end %>
     </div>
-    <div>
-      <%= form.label :description, "Описание", class: "block font-medium text-gray-700 mb-1" %>
-      <%= form.rich_text_area :description, class: "w-full border border-gray-300 rounded shadow-sm" %>
-      <% @tour.errors[:description].each do |msg| %>
-        <p class="text-red-600 text-sm mt-1"><%= msg %></p>
-      <% end %>
-    </div>
+
     <div>
       <%= form.label :image, "Изображение", class: "block font-medium text-gray-700 mb-1" %>
       <% if @tour.image.attached? %>
@@ -49,15 +43,23 @@
           <%= image_tag @tour.image.variant(resize_to_limit: [300, 200]), class: "rounded border" %>
         </div>
       <% end %>
-      <%= form.file_field :image,
-          class: "w-full border border-gray-300 rounded px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      <%= form.file_field :image, class: "w-full border border-gray-300 rounded px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" %>
       <% @tour.errors[:image].each do |msg| %>
         <p class="text-red-600 text-sm mt-1"><%= msg %></p>
       <% end %>
     </div>
-    <div>
+
+    <div class="md:col-span-2">
+      <%= form.label :description, "Описание", class: "block font-medium text-gray-700 mb-1" %>
+      <%= form.rich_text_area :description, class: "w-full border border-gray-300 rounded shadow-sm" %>
+      <% @tour.errors[:description].each do |msg| %>
+        <p class="text-red-600 text-sm mt-1"><%= msg %></p>
+      <% end %>
+    </div>
+
+    <div class="md:col-span-2">
       <%= form.label :category_ids, "Категории", class: "block font-medium text-gray-700 mb-2" %>
-      <div class="grid grid-cols-2 gap-2">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
           <div class="flex items-center">
             <%= b.check_box(class: "mr-2") %>
@@ -69,9 +71,9 @@
         <p class="text-red-600 text-sm mt-1"><%= msg %></p>
       <% end %>
     </div>
-    <div>
-      <%= form.submit(@tour.new_record? ? "Создать тур" : "Сохранить изменения",
-          class: "bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded shadow-md transition") %>
+
+    <div class="md:col-span-2 flex justify-center mt-4">
+      <%= form.submit(@tour.new_record? ? "Создать тур" : "Сохранить изменения", class: "bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded shadow-md transition") %>
     </div>
   </div>
 <% end %>
