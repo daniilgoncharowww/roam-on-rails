@@ -1,0 +1,50 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6 text-black">Информация о заказе</h1>
+
+  <div class="bg-white shadow rounded p-6 text-black space-y-4">
+    <div>
+      <span class="font-semibold">ID заказа:</span>
+      <span><%= @booking.id %></span>
+    </div>
+
+    <div>
+      <span class="font-semibold">ФИО:</span>
+      <span><%= @booking.full_name %></span>
+    </div>
+
+    <div>
+      <span class="font-semibold">Email:</span>
+      <span><%= @booking.email %></span>
+    </div>
+
+    <div>
+      <span class="font-semibold">Телефон:</span>
+      <span><%= @booking.phone_number %></span>
+    </div>
+
+    <div>
+      <span class="font-semibold">Способ оплаты:</span>
+      <span><%= @booking.payment_method %></span>
+    </div>
+
+    <div>
+      <span class="font-semibold">Тур:</span>
+      <span><%= @booking.tour.name %></span>
+    </div>
+
+    <div>
+      <span class="font-semibold">Стоимость тура:</span>
+      <span><%= number_to_currency(@booking.tour.final_price, unit: "₽", precision: 0) %></span>
+    </div>
+
+    <div>
+      <span class="font-semibold">Дата создания:</span>
+      <span><%= l(@booking.created_at, format: :short) %></span>
+    </div>
+  </div>
+
+  <div class="mt-6 space-x-2">
+    <%= link_to "Редактировать", edit_admin_booking_path(@booking), class: "inline-block bg-yellow-400 hover:bg-yellow-500 text-white text-sm px-4 py-2 rounded" %>
+    <%= link_to "Назад", admin_bookings_path, class: "inline-block bg-gray-400 hover:bg-gray-500 text-white text-sm px-4 py-2 rounded" %>
+  </div>
+</div>

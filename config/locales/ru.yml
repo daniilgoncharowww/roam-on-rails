@@ -15,3 +15,23 @@ ru:
       too_short: "должен содержать не менее %{count} символов"
       invalid: "имеет неверный формат"
       not_a_number: "должно быть числом"
+  date:
+    formats:
+      short: "%d %b %Y"
+    abbr_month_names:
+      - ~
+      - янв
+      - фев
+      - мар
+      - апр
+      - май
+      - июн
+      - июл
+      - авг
+      - сен
+      - окт
+      - ноя
+      - дек
+  time:
+    formats:
+      short: "%d %b %H:%M"

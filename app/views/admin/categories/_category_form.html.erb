@@ -17,8 +17,8 @@
     <%= form.text_field :name, class: "w-full border border-gray-400 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition duration-150 ease-in-out text-gray-900 placeholder-gray-400 shadow-sm" %>
   </div>
 
-  <div class="flex space-x-4">
-    <%= form.submit category.new_record? ? "Создать" : "Обновить", class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded shadow transition" %>
+  <div class="flex space-x-4 justify-center">
+    <%= form.submit category.new_record? ? "Создать" : "Обновить", class: "bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded shadow transition" %>
     <%= link_to "Назад", admin_categories_path, class: "bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-5 rounded shadow transition" %>
   </div>
 <% end %>

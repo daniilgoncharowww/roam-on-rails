@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   root "public#index"
   get "tours", to: "public#tours", as: "tours"
   get "tours/:id", to: "public#tour", as: "tour"
+  get "tours/:tour_id/bookings/new", to: "public#new", as: "new_tour_booking"
+  post "tours/:tour_id/bookings", to: "public#create", as: "tour_bookings"
   namespace :admin do
     resources :categories, except: [ :show ] do
       member do
@@ -16,7 +18,11 @@ Rails.application.routes.draw do
         get :confirm_destroy
       end
     end
-    resources :bookings
+    resources :bookings do
+      member do
+        get :confirm_destroy
+      end
+    end
   end
 
   get "admin", to: "admin#index", as: "admin"

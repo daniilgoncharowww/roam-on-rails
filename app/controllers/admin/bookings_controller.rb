@@ -1,63 +1,55 @@
-class BookingsController < ApplicationController
-  before_action :authenticate_user!, except: [ :new, :create ]
-  before_action :set_book, only: [ :show, :edit, :update, :destroy ]
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+module Admin
+  class BookingsController < ApplicationController
+    before_action :authenticate_user!
+    before_action :set_book, only: [ :show, :edit, :update, :confirm_destroy, :destroy ]
+    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+    rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
-  def index
-    @books = Booking.all
-  end
+    def index
+      sort_column = params[:sort].presence_in(%w[id full_name price]) || "id"
+      sort_direction = params[:direction].presence_in(%w[asc desc]) || "asc"
 
-  def show
-  end
-
-  def new
-    @tour = Tour.find(params[:tour_id])
-    @book = Booking.new
-  end
-
-  def create
-    @tour = Tour.find(params[:tour_id])
-    @book = @tour.bookings.build(book_params)
-
-    if @book.save
-      redirect_to root_path, notice: "Бронирование успешно оформлено!"
-    else
-      render :new, status: :unprocessable_entity
+      @bookings = Booking.includes(:tour).order(Arel.sql("#{sort_column} #{sort_direction}"))
     end
-  end
 
-  def edit
-  end
-
-  def update
-    if @book.update(order_params)
-      redirect_to @order, notice: "Бронирование обновлено."
-    else
-      render :edit, status: :unprocessable_entity
+    def show
     end
-  end
 
-  def destroy
-    @book.destroy
-    redirect_to orders_path, notice: "Бронирование удалено."
-  end
+    def edit
+    end
 
-  private
+    def update
+      if @booking.update(book_params)
+        redirect_to @order, notice: "Бронирование обновлено."
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
 
-  def set_book
-    @book = Booking.find(params[:id])
-  end
+    def confirm_destroy
+    end
 
-  def book_params
-    params.require(:booking).permit(:full_name, :email, :phone_number, :payment_method)
-  end
+    def destroy
+      @booking.destroy
+      redirect_to admin_bookings_path, notice: "Бронирование удалено."
+    end
 
-  def record_not_found
-    redirect_to root_path, alert: "Запись не найдена."
-  end
+    private
 
-  def record_invalid(exception)
-    redirect_to root_path, alert: "Невалидные данные: #{exception.record.errors.full_messages.to_sentence}"
+    def set_book
+      @booking = Booking.find(params[:id])
+    end
+
+    def book_params
+      params.require(:booking).permit(:full_name, :email, :phone_number, :payment_method)
+    end
+
+    def record_not_found
+      redirect_to bookings_path, alert: "Запись не найдена."
+    end
+
+    def record_invalid(exception)
+      redirect_to bookings_path, alert: "Невалидные данные: #{exception.record.errors.full_messages.to_sentence}"
+    end
   end
 end

@@ -1,0 +1,41 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6 text-black">Заказы</h1>
+  <div class="overflow-x-auto">
+    <table class="min-w-full table-auto bg-white border border-gray-200 rounded shadow">
+      <thead>
+        <tr class="bg-gray-100 text-left text-gray-700">
+          <th class="w-1/12 py-3 px-4 border-b font-medium">
+            <%= link_to "ID", admin_bookings_path(sort: "id", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
+          </th>
+          <th class="w-2/12 py-3 px-4 border-b font-medium">
+            <%= link_to "ФИО", admin_bookings_path(sort: "full_name", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
+          </th>
+          <th class="w-2/12 py-3 px-4 border-b font-medium">Тур</th>
+          <th class="w-2/12 py-3 px-4 border-b font-medium">Сумма к оплате</th>
+          <th class="w-2/12 py-3 px-4 border-b font-medium">
+            <%= link_to "Создан", admin_bookings_path(sort: "created_at", direction: params[:direction] == "asc" ? "desc" : "asc"), class: "hover:underline" %>
+          </th>
+          <th class="w-4/12 py-3 px-4 border-b font-medium">Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @bookings.each do |booking| %>
+          <tr class="hover:bg-gray-50 text-black text-left">
+            <td class="py-3 px-4 border-b"><%= booking.id %></td>
+            <td class="py-3 px-4 border-b"><%= booking.full_name %></td>
+            <td class="py-3 px-4 border-b"><%= booking.tour.name %></td>
+            <td class="py-3 px-4 border-b">
+              <%= number_to_currency(booking.tour.final_price, unit: "₽", precision: 0) %>
+            </td>
+            <td class="py-3 px-4 border-b"><%= l(booking.created_at, format: :short) %></td>
+            <td class="py-3 px-4 border-b space-x-2 font-bold">
+              <%= link_to "Подробнее", admin_booking_path(booking), class: "inline-block bg-gray-400 hover:bg-gray-500 text-white text-sm px-3 py-1 rounded" %>
+              <%= link_to "Редактировать", edit_admin_booking_path(booking), class: "inline-block bg-yellow-400 hover:bg-yellow-500 text-white text-sm px-3 py-1 rounded" %>
+              <%= link_to "Удалить", confirm_destroy_admin_booking_path(booking), method: :delete, data: { confirm: "Вы уверены?" }, class: "inline-block bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

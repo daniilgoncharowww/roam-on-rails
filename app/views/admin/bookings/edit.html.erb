@@ -1,0 +1,41 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6 text-black text-center">Редактирование заказа</h1>
+
+  <div class="bg-white shadow rounded p-6 text-black max-w-xl mx-auto">
+    <%= form_with model: [:admin, @booking], local: true do |form| %>
+      <div class="space-y-4">
+
+        <div>
+          <%= form.label :full_name, "ФИО", class: "block font-semibold mb-1" %>
+          <%= form.text_field :full_name, class: "w-full border border-gray-300 rounded px-4 py-2" %>
+        </div>
+
+        <div>
+          <%= form.label :email, "Email", class: "block font-semibold mb-1" %>
+          <%= form.email_field :email, class: "w-full border border-gray-300 rounded px-4 py-2" %>
+        </div>
+
+        <div>
+          <%= form.label :phone_number, "Телефон", class: "block font-semibold mb-1" %>
+          <%= form.text_field :phone_number, class: "w-full border border-gray-300 rounded px-4 py-2" %>
+        </div>
+
+        <div>
+          <%= form.label :payment_method, "Способ оплаты", class: "block font-semibold mb-1" %>
+          <%= form.select :payment_method, ['Наличные', 'Карта', 'Онлайн'], {}, class: "w-full border border-gray-300 rounded px-4 py-2" %>
+        </div>
+
+        <div>
+          <%= form.label :tour_id, "Тур", class: "block font-semibold mb-1" %>
+          <%= form.collection_select :tour_id, Tour.all, :id, :name, { prompt: "Выберите тур" }, class: "w-full border border-gray-300 rounded px-4 py-2" %>
+        </div>
+
+      </div>
+
+      <div class="mt-6 flex justify-between">
+        <%= form.submit "Сохранить", class: "bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded" %>
+        <%= link_to "Отмена", admin_booking_path(@booking), class: "bg-gray-400 hover:bg-gray-500 text-white font-semibold px-6 py-2 rounded" %>
+      </div>
+    <% end %>
+  </div>
+</div>
